@@ -50,7 +50,7 @@
 
         <button type="submit" 
                 class="group relative w-full flex justify-center items-center py-5 px-6 border-0 rounded-2xl text-lg font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-            <span class="relative z-10">Sign In</span>
+            <span class="relative z-10">S   ign In</span>
             <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </button>
     </form>

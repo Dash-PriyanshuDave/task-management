@@ -5,7 +5,7 @@
             <div>
                 <label for="name" class="block text-sm font-bold text-white/90 mb-2">Full Name</label>
                 <input id="name" name="name" type="text" required 
-                       class="w-full px-5 py-4 bg-white/20 border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 @error('name') ring-2 ring-red-400 @enderror"
+                       class="w-full px-5 py-4 bg-black border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 @error('name') ring-2 ring-red-400 @enderror"
                        placeholder="John Doe" value="{{ old('name') }}">
                 @error('name')
                     <p class="mt-2 text-sm text-red-300">{{ $message }}</p>
@@ -15,7 +15,7 @@
             <div>
                 <label for="email" class="block text-sm font-bold text-white/90 mb-2">Email Address</label>
                 <input id="email" name="email" type="email" required 
-                       class="w-full px-5 py-4 bg-white/20 border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 @error('email') ring-2 ring-red-400 @enderror"
+                       class="w-full px-5 py-4 bg-black border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 @error('email') ring-2 ring-red-400 @enderror"
                        placeholder="john@example.com" value="{{ old('email') }}">
                 @error('email')
                     <p class="mt-2 text-sm text-red-300">{{ $message }}</p>
@@ -26,7 +26,7 @@
                 <div>
                     <label for="password" class="block text-sm font-bold text-white/90 mb-2">Password</label>
                     <input id="password" name="password" type="password" required 
-                           class="w-full px-5 py-4 bg-white/20 border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 @error('password') ring-2 ring-red-400 @enderror"
+                           class="w-full px-5 py-4 bg-black border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 @error('password') ring-2 ring-red-400 @enderror"
                            placeholder="••••••••">
                     @error('password')
                         <p class="mt-2 text-sm text-red-300">{{ $message }}</p>
@@ -35,14 +35,14 @@
                 <div>
                     <label for="password_confirmation" class="block text-sm font-bold text-white/90 mb-2">Confirm</label>
                     <input id="password_confirmation" name="password_confirmation" type="password" required 
-                           class="w-full px-5 py-4 bg-white/20 border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300">
+                           class="w-full px-5 py-4 bg-black border border-white/30 rounded-2xl text-white placeholder-white/60 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300">
                 </div>
             </div>
             
-            <div>
+            <div> 
                 <label for="role" class="block text-sm font-bold text-white/90 mb-2">Role</label>
                 <select id="role" name="role" required 
-                        class="w-full px-5 py-4 bg-white/20 border border-white/30 rounded-2xl text-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 appearance-none">
+                        class="w-full px-5 py-4 bg-black border border-white/30 rounded-2xl text-white backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-300 appearance-none">
                     <option value="">Select your role</option>
                     <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>👑 Manager</option>
                     <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>👤 Team Member</option>
@@ -68,4 +68,4 @@
             </svg>
         </a>
     </div>
-</x-auth-card>
+</x-auth-card>  
