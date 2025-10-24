@@ -33,39 +33,37 @@
                     </svg>
                 </div>
                 <h2 class="mt-6 text-4xl font-extrabold text-gray-900 tracking-tight">Team Member Dashboard</h2>
-                <p class="mt-4 text-xl text-gray-600">View your assigned tasks and projects</p>
+                <p class="mt-4 text-xl text-gray-600">View and update your assigned tasks</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white overflow-hidden shadow-xl rounded-2xl p-8 transform hover:scale-105 transition duration-300">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-12 w-12 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Your Assigned Tasks</h3>
+                <div class="space-y-6">
+                    @forelse ($tasks as $task)
+                        <div class="bg-white overflow-hidden shadow-xl rounded-2xl p-8">
+                            <div class="flex justify-between items-start">
+                                <div class="w-0 flex-1">
+                                    <h4 class="text-lg font-bold text-gray-900">{{ $task->title }}</h4>
+                                    <p class="mt-2 text-gray-600">{{ $task->description ?? 'No description' }}</p>
+                                    <p class="mt-2 text-sm text-gray-500">Project: {{ $task->project->name }}</p>
+                                    <p class="mt-1 text-sm text-gray-500">Assigned by: {{ $task->project->creator->name }}</p>
+                                    <p class="mt-1 text-sm text-gray-500">Status: {{ $task->completed ? 'Completed' : 'Pending' }}</p>
+                                </div>
+                                @if (!$task->completed)
+                                    <form method="POST" action="{{ route('tasks.update', $task) }}" class="ml-4">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="completed" value="1">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-200">
+                                            Mark Complete
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Assigned Tasks</dt>
-                                <dd class="text-3xl font-extrabold text-gray-900">0</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white overflow-hidden shadow-xl rounded-2xl p-8 transform hover:scale-105 transition duration-300">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <svg class="h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Projects</dt>
-                                <dd class="text-3xl font-extrabold text-gray-900">0</dd>
-                            </dl>
-                        </div>
-                    </div>
+                    @empty
+                        <p class="text-gray-600">No tasks assigned yet.</p>
+                    @endforelse
                 </div>
             </div>
         </div>

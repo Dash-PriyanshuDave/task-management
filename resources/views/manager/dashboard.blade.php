@@ -41,23 +41,63 @@
                 <p class="mt-6 text-2xl text-gray-600 font-semibold">Create projects • Assign tasks • Lead your team</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group bg-white/80 backdrop-blur-xl overflow-hidden shadow-2xl rounded-3xl p-10 border border-white/50 hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0 p-4 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl group-hover:rotate-12 transition-transform duration-500">
-                            <svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
-                            </svg>
-                        </div>
-                        <div class="ml-6 w-0 flex-1">
-                            <dl>
-                                <dt class="text-lg font-bold text-gray-500 truncate">Projects Created</dt>
-                                <dd class="text-4xl font-black text-gray-900">0</dd>
-                            </dl>
+            <!-- Project Creation Link -->
+            <div class="mb-12 text-center">
+                <a href="{{ route('projects.create') }}" class="inline-flex items-center py-4 px-8 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 transition-all duration-300">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Create New Project
+                </a>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Your Projects and Tasks</h3>
+                @forelse ($projects as $project)
+                    <div class="mb-8 bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-white/50">
+                        <h4 class="text-xl font-bold text-gray-900 mb-4">{{ $project->name }}</h4>
+                        <p class="text-gray-600 mb-4">{{ $project->description ?? 'No description' }}</p>
+                        <a href="{{ route('projects.tasks.index', $project) }}" class="inline-block text-emerald-500 hover:text-emerald-600 font-medium mb-4">View All Tasks</a>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            @forelse ($project->tasks as $task)
+                                <div class="p-4 bg-white rounded-2xl shadow">
+                                    <p class="font-medium text-gray-900">{{ $task->title }}</p>
+                                    <p class="text-sm text-gray-600">{{ $task->description ?? 'No description' }}</p>
+                                    <p class="text-sm text-gray-500">Assigned to: {{ $task->assignee->name }}</p>
+                                    <p class="text-sm text-gray-500">Status: {{ $task->completed ? 'Completed' : 'Pending' }}</p>
+                                </div>
+                            @empty
+                                <p class="text-gray-600">No tasks in this project.</p>
+                            @endforelse
                         </div>
                     </div>
+                @empty
+                    <p class="text-gray-600">No projects created yet.</p>
+                @endforelse
+            </div>
+
+            <!-- Users Section -->
+            <div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Team Members</h3>
+                <div class="bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-white/50">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @forelse ($users as $user)
+                            <div class="flex items-center p-4 bg-white rounded-2xl shadow hover:shadow-lg transition duration-300">
+                                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-lg font-medium text-gray-900">{{ $user->name }}</p>
+                                    <p class="text-sm text-gray-500">{{ $user->role === 'manager' ? '👑 Manager' : '👤 Team Member' }}</p>
+                                    <p class="text-sm text-gray-500">Email: {{ $user->email }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-gray-600">No users found.</p>
+                        @endforelse
+                    </div>
                 </div>
-                <!-- Add more stats cards similarly -->
             </div>
         </div>
     </div>

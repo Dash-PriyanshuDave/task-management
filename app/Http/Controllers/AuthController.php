@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -12,9 +13,14 @@ class AuthController extends Controller
 {
     public function dashboard()
     {
-        return auth()->user()->isManager() 
-            ? view('manager.dashboard') 
-            : view('user.dashboard');
+        if (auth()->user()->isManager()) {
+            $users = User::all(); // Fetch all users for manager
+            $projects = auth()->user()->projects; // Manager's projects
+            return view('manager.dashboard', compact('users', 'projects'));
+        }
+
+        $tasks = Task::where('assigned_to', auth()->id())->with('project', 'project.creator')->get(); // User's assigned tasks
+        return view('user.dashboard', compact('tasks'));
     }
 
     public function showRegister()
